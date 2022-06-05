@@ -48,3 +48,29 @@ let car_time = car_distance / car.speed;
 
 console.log('bicycle time =', bi_time)
 console.log('car time = ', car_time)
+
+
+// Дз паттерны номер 1
+class Moto{
+    constructor(model, price,maxSpeed){
+        this.model = model;
+        this.price = price;
+        this.maxSpeed = maxSpeed;
+    }
+}
+
+class MotoFactory{
+    create(type){
+        if(type === 'ducati')
+            return new Moto(type, 10000, 400)
+        if(type === 'suzuki')
+            return new Moto(type, 5000,300)
+    }
+}
+
+const fact = new MotoFactory;
+
+const ducati = fact.create('ducati')
+console.log(ducati);
+const suzuki = fact.create('suzuki')
+console.log(suzuki);
