@@ -1,71 +1,57 @@
-/**
- * Это пример рабочего кода, который катастрофически нуждается в рефакторинге!
- * Твоя задача - привести его в надлежащий вид
- */
-
-// Когда-то это была большая и сложная функция, но время ее не щадило
-function usePrompt(...text){
-
-    // остатки старого кода
-    // const ob = [
-    //     {
-    //         ..
-    //     }
-    // ]
-    // fun
-
-    return prompt(text[0])
-}
-
-// получаем число от пользователя
+const usePrompt = (...text) => prompt(text[0]);
+let countOfTry = 0; // для хранение количества попыток 
 let maxValue = usePrompt(['введите максимальное целое число!']);
 
-// добиваемся чтоб это было целое число
-while (Number(maxValue) === 0 || Number(maxValue) < 0 || Number(maxValue) === undefined || Number(maxValue) === null || !Number(maxValue)){
-    maxValue = usePrompt(['введите максимальное целое число!']);
-}
-// используем целое число как верхнюю границу рандомного числа
-let randomNumber = Math.floor(Math.random() * maxValue)
 
-alert(`Загадано число от 0 до ${maxValue} попробуй отгадать!`);
 
-// тут будем хранить количество попыток
-let countOfTry = 0;
+function testMaxValue(value){
+while (
+    Number(value) === 0 ||
+    Number(value) < 0 ||
+    Number(value) === undefined ||
+    Number(value) === null ||
+    !Number(value)
+  ) {
+    value = usePrompt(['введите максимальное целое число!']);
+  }
+  alert(`Загадано число от 0 до ${value} попробуй отгадать!`);
+  
+};
+testMaxValue(maxValue);
 
-let userNumber = prompt('Попробуй!');
+let randomNumber = ~~(Math.random() * maxValue);
+let userNumber  = prompt('Попробуй!');
 
-// добиваемся чтоб это было целое число
-while (Number(userNumber) < 0 || Number(userNumber) === undefined || Number(userNumber) === null){
-    userNumber = usePrompt(['Введи целое число!']);
-}
+function testUser(value) { 
+while (Number(value) < 0 || Number(value) === undefined || Number(value) === null){
+     value = usePrompt(['Введи целое число!']);
+   }
+};
 
+testUser(userNumber);
+
+
+function userNumberOrRandom(userNum,random){
 while (1){
 
-    if (userNumber > randomNumber){
-        userNumber = prompt('Мое число меньше, попробуй еще!');
-
+    if (userNum > random){
+        userNum = prompt('Мое число меньше, попробуй еще!');
         // добиваемся чтоб это было целое число
-        while (Number(userNumber) < 0 || Number(userNumber) === undefined || Number(userNumber) === null){
-            userNumber = prompt('Введи целое число!');
-        }
-
+        testUser(userNum)
         countOfTry++
-    }
-    if (userNumber < randomNumber){
-        userNumber = prompt('Мое число больше, попробуй еще!');
-
-        // добиваемся чтоб это было целое число
-        while (Number(userNumber) < 0 || Number(userNumber) === undefined || Number(userNumber) === null){
-            userNumber = prompt('Введи целое число!');
-        }
-
+    };
+    if (userNum < random){
+        userNum = prompt('Мое число больше, попробуй еще!');
+        testUser(userNum)
         countOfTry++
-    }
-    if (userNumber == randomNumber){
+    };
+    if (userNum == random){
         alert(`Ура! Угадал. Тебе понадобилось ${countOfTry} попыток!`);
         break;
-    }
-}
+    };
+};
 
+}
+userNumberOrRandom(userNumber,randomNumber);
 
 
